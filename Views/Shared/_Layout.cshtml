@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Электронная библиотека</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Library.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+    <nav class="py-2 bg-light border-bottom">
+    <div class="container d-flex flex-wrap">
+        <ul class="nav me-auto">
+            <li class="nav-item"><a asp-controller="Books" asp-action="List" class="nav-link link-dark px-2 active" aria-current="page">Домашняя страница</a></li>
+        </ul>
+        <ul class="nav">
+            @{
+                if (User.Identity.IsAuthenticated) 
+                {
+                    <li class="nav-item"><a href="" class="nav-link link-dark px-2">@User.Identity.Name</a></li>
+                    <li class="nav-item"><a asp-controller="Account" asp-action="Logout" class="nav-link link-dark px-2">Выйти</a></li>
+                }
+                else
+                {
+                    <li class="nav-item"><a asp-controller="Account" asp-action="Login" class="nav-link link-dark px-2">Войти</a></li>
+                    <li class="nav-item"><a asp-controller="Account" asp-action="Register" class="nav-link link-dark px-2">Регистрация</a></li>
+                }
+            }
+        </ul>
+    </div>
+    </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2022 - Library
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

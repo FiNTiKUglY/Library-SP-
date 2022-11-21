@@ -1,0 +1,73 @@
+﻿@using Library.ViewModels
+@model BooksView
+
+<html>
+	<body style="background-color: #E0FFFF">
+		<div style="width: 70%; margin:0 auto">
+		<h1 align="center">
+			Все книги
+			@{
+				if (User.IsInRole("admin")) {
+					<a class="btn btn-success" asp-controller="Books" asp-action="Add">Добавить</a>
+				}
+			}
+		</h1>
+		<form asp-action="List" method="post">
+			<input asp-for="@Model.Text" type="search" list="cocktail" class="form-control">
+			 <datalist id="cocktail">
+				 @{
+					 foreach(var book in Model.Books) {
+						<option>@book.ToString()</option>
+					 }
+				 }
+			 </datalist>
+		</form>
+		<table class="table" align="center">
+			<form>
+				<tr>
+					<th>
+						<a asp-action="List" asp-route-sortOrder="@ViewBag.TitleSort">
+						Название
+						</a>
+					</th>
+					<th>
+						<a asp-action="List" asp-route-sortOrder="@ViewBag.AuthorSort">
+						Автор
+						</a>
+					</th>
+					<th>
+						<a asp-action="List" asp-route-sortOrder="@ViewBag.YearSort">
+						Год
+						</a>
+					</th>
+				</tr>
+			</form>
+		</table>
+		<div class="list-group">
+		@{
+			foreach(var book in Model.Books) {
+				<div style="width: 100%; display: flex; flex-direction: row">
+					<div style="width: 100%">
+						<a href="~/pdf/@book.File" class="list-group-item list-group-item-action flex-column">
+							<div class="d-flex w-100 justify-content-between">
+								<h5 class="mb-1">@book.Title</h5>
+							</div>
+							<p class="mb-1">@book.ToString()</p>
+						</a>
+					</div>
+					@{
+						if (User.IsInRole("admin"))
+						{
+							<div style="width: 10%; float: right; margin-left: 2px">
+								<a class="btn btn-info me-md-2" asp-controller="Books" asp-action="Edit" asp-route-bookId="@book.Id">Изменить</a>
+								<a class="btn btn-danger me-md-2"  asp-controller="Books" asp-action="Remove" asp-route-bookId="@book.Id">Удалить</a>
+							</div>
+						}
+					}	
+				</div>
+			}
+		}
+		</div>
+		</div>
+	</body>
+</html>

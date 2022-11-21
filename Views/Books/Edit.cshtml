@@ -1,0 +1,42 @@
+﻿@using Library.Models
+@model Book
+
+<body style="background-color: #E0FFFF">
+<div style="padding: 40px;"></div>
+
+<div class="container py-5" >
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row justify-content-center">
+                <div class="col-md-10" style="width: 40%">
+                    <span class="anchor"></span>
+                    <div class="card card-account card-outline-secondary border border-white">
+                        <div class="card-header">
+                            <h3 class="mb-0 text-center ParagraphHome">Изменение книги</h3>
+                        </div>
+                        <div class="card-body">
+                            <form autocomplete="on" method="post" asp-controller="Books" asp-action="Edit" asp-route-bookId="@Model.Id">
+                                <div asp-validation-summary="All" style="font-size:23px; font-family:Impact" class="text-danger text-center"></div>
+                                <div class="form-group">
+                                    <input asp-for="Title" placeholder="Название" class="form-control textbox-dg font-weight-bold text-center" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="Author" placeholder="Автор" class="form-control textbox-dg font-weight-bold text-center" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="Year" placeholder="Год" class="form-control textbox-dg font-weight-bold text-center" type="text">
+                                </div>
+                                <div class="form-group">
+                                    <input asp-for="File" placeholder="Файл" class="form-control textbox-dg font-weight-bold text-center" type="text">
+                                </div>
+                                <br />
+                                <button class="btn btn-info" style="float: right">Изменить</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
